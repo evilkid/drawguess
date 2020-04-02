@@ -52,7 +52,7 @@ public class GameService {
 
         publishUsers();
 
-        if (gameSession.getUsers().size() < 2) {
+        if (gameSession.getUsers().size() < 2 && gameSession.isGameStarted()) {
             gameSession.setGameStarted(false);
             gameSession.getQueue().clear();
             stopTurn();
