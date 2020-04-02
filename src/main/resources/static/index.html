@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Draw and Guess</title>
+    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<body onload="disconnect()">
+    <div class="container-fluid h-100">
+
+        <div id="status" class="login">
+
+        </div>
+
+        <div id="login">
+            <div class="main row justify-content-center h-100">
+                <form id="login-form" name="login-form">
+                    <div class="input-group">
+                        <input id="username" type="text" class="form-control all-input" autocomplete="off"
+                               placeholder="Username"/>
+                        <div class="input-group-append">
+                            <button class="fas fa-location-arrow" type="submit"></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="main-page" class="hide main">
+            <div class="row justify-content-center h-100">
+                <div class="score-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex bd-highlight">
+                                <div class="card-summary">
+                                    <span>Score</span>
+                                </div>
+                                <div class="round">
+                                    0/0
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body users-card">
+                            <div id="users">
+
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="ready-button" id="ready-button">7ather <i class="far fa-thumbs-up"></i>
+                            </button>
+
+                            <span class="ready-label">0/0 7ather(in)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="drawing-board-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex bd-highlight">
+                                <div class="card-summary">
+                                    <span>El Saboura</span>
+                                </div>
+
+                                <div class="word">
+                                </div>
+
+                                <div class="timer">
+                                    0
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body" style="padding: 0 0 0 6px; overflow: hidden  ">
+                            <canvas class="js-paint paint-canvas" width="700" height="350"></canvas>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="input-group draw-controls disable-elements">
+                                <div class="colors">
+                                    <button type="button" value="#0000ff"></button>
+                                    <button type="button" value="#009fff"></button>
+                                    <button type="button" value="#0fffff"></button>
+                                    <button type="button" value="#bfffff"></button>
+                                    <button type="button" value="#000000"></button>
+                                    <button type="button" value="#333333"></button>
+                                    <button type="button" value="#666666"></button>
+                                    <button type="button" value="#999999"></button>
+                                    <button type="button" value="#ffcc66"></button>
+                                    <button type="button" value="#ffcc00"></button>
+                                    <button type="button" value="#ffff00"></button>
+                                    <button type="button" value="#ffff99"></button>
+                                    <button type="button" value="#003300"></button>
+                                    <button type="button" value="#555000"></button>
+                                    <button type="button" value="#00ff00"></button>
+                                    <button type="button" value="#99ff99"></button>
+                                    <button type="button" value="#f00000"></button>
+                                    <button type="button" value="#ff6600"></button>
+                                    <button type="button" value="#ff9933"></button>
+                                    <button type="button" value="#f5deb3"></button>
+                                    <button type="button" value="#330000"></button>
+                                    <button type="button" value="#663300"></button>
+                                    <button type="button" value="#cc6600"></button>
+                                    <button type="button" value="#deb887"></button>
+                                    <button type="button" value="#aa0fff"></button>
+                                    <button type="button" value="#cc66cc"></button>
+                                    <button type="button" value="#ff66ff"></button>
+                                    <button type="button" value="#ff99ff"></button>
+                                    <button type="button" value="#e8c4e8"></button>
+                                    <button type="button" value="#ffffff"></button>
+                                </div>
+
+                                <div class="brushes">
+                                    <button type="button" value="2"></button>
+                                    <button type="button" value="3"></button>
+                                    <button type="button" value="4"></button>
+                                    <button type="button" value="5"></button>
+                                    <button type="button" value="6"></button>
+                                    <button type="button" value="7"></button>
+                                </div>
+
+                                <button id="clear-button">Fasa5</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="messages-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex bd-highlight">
+                                <div class="card-summary">
+                                    <span>Messaget</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body chat-container">
+                            <div id="chat">
+                            </div>
+                        </div>
+
+                        <form id="message-controls" name="message-controls" class="card-footer">
+                            <div class="input-group">
+                                <input id="message" class="form-control all-input"
+                                       placeholder="Ekteb messagek/kelma hne..."/>
+                                <div class="input-group-append">
+                                    <button class="fas fa-location-arrow" type="submit"></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Words Modal -->
+    <div class="modal fade" id="word-modal" tabindex="-1" role="dialog"
+         aria-labelledby="wordModalLabel" aria-hidden="true"
+         data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="word-modal-label">A5tar kelma</h5>
+                </div>
+                <div class="modal-body" id="word-modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Turn Score Modal -->
+    <div class="modal fade" id="turn-score-modal" tabindex="-1" role="dialog"
+         aria-labelledby="turnScoreModalLabel" aria-hidden="true"
+         data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="turn-score-modal-label">Turn Score</h5>
+                </div>
+                <div class="modal-body" id="turn-score-modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Score Modal -->
+    <div class="modal fade" id="game-score-modal" tabindex="-1" role="dialog" aria-labelledby="gameScoreModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="game-score-modal-label">Game Score</h5>
+                </div>
+                <div class="modal-body" id="game-score-modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+</body>
+</html>
