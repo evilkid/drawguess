@@ -275,7 +275,7 @@ const registerRoutes = (username) => {
 
 const connect = (event) => {
 
-    document.querySelector("login-button").disabled = true;
+    document.querySelector("#login-button").disabled = true;
 
     username = document.getElementById('username').value;
 
@@ -284,10 +284,10 @@ const connect = (event) => {
         .then(data => {
             if (data.error === false) {
                 registerRoutes(username);
-                document.querySelector("login-button").disabled = false;
+                document.querySelector("#login-button").disabled = false;
             } else {
                 alert(data.message);
-                document.querySelector("login-button").disabled = false;
+                document.querySelector("#login-button").disabled = false;
             }
         });
 
