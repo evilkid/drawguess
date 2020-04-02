@@ -75,7 +75,9 @@ public class GameService {
         }
 
         //At least 2 players
-        if (gameSession.getUsers().size() > 1 && readyUsersCount == gameSession.getUsers().size()) {
+        if (gameSession.getUsers().size() > 1
+                && readyUsersCount == gameSession.getUsers().size()
+                && !gameSession.isGameStarted()) {
             startGame();
         }
     }
