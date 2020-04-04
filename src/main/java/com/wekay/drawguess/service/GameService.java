@@ -233,6 +233,11 @@ public class GameService {
             @Override
             public void run() {
                 int seconds = gameSession.decrementAndGetCurrentTurnTime();
+
+                if (seconds == MAX_SCORE && !usersFoundWord()) {
+                    publishAidedWord();
+                }
+
                 publishTurnTime(seconds);
                 if (seconds <= 0 || !gameSession.isGameStarted()) {
                     stopTurn();
@@ -241,6 +246,16 @@ public class GameService {
         }, 500, 1000);
 
         gameSession.setTurnTimer(timer);
+    }
+
+    private void publishAidedWord() {
+        String currentWord = gameSession.getCurrentWord();
+        int letterIndex = new Random().nextInt(currentWord.length());
+
+        StringBuilder stringBuilder = new StringBuilder("_".repeat(currentWord.length()));
+        stringBuilder.setCharAt(letterIndex, currentWord.charAt(letterIndex));
+
+        simpMessageSendingOperations.convertAndSend("/topic/word", new GuessedWord(stringBuilder.toString()));
     }
 
     private boolean isRoundEnded() {
@@ -252,10 +267,6 @@ public class GameService {
         headerAccessor.setSessionId(sessionId);
         headerAccessor.setLeaveMutable(true);
         return headerAccessor;
-    }
-
-    private List<String> generateWords() {
-        return List.of("word1", "word2", "word3");
     }
 
     // Broadcast publisher
@@ -362,5 +373,10 @@ public class GameService {
         return gameSession.getUsers().stream()
                 .filter(user -> user.getUsername().equalsIgnoreCase(username))
                 .findFirst();
+    }
+
+    private boolean usersFoundWord() {
+        return gameSession.getUsers().stream()
+                .anyMatch(user -> user.getCurrentTurnScore() != 0);
     }
 }
